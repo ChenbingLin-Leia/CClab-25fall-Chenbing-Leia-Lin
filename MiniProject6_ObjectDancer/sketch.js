@@ -26,7 +26,7 @@ function draw() {
   background(0);
   drawFloor(); // for reference only
 
-  // dancer.update();
+  dancer.update();
   dancer.display();
 }
 
@@ -43,8 +43,11 @@ class LeiaDancer {
     this.direction = 1
     this.cy = 0
     this.jumpAngle = 0
+    this.eyeAngle = 0
   }
   update() {
+    //eye
+    this.eyeAngle++
     //smile
     this.smileAngle = abs(((frameCount % 120) - 60) / 2);
     //bounce
@@ -69,36 +72,89 @@ class LeiaDancer {
     // ⬇️ draw your dancer from here ⬇️
     noStroke()
     angleMode(DEGREES);
-    fill(195, 214, 231);
-    arc(this.cx, this.cy, this.body, this.body, 180, 360, CHORD); //body
+    fill(229, 218, 235)
+    arc(this.cx, this.cy, this.body, this.body, 180, 360, CHORD);
+    rect(this.cx - this.body / 2, this.cy, this.body, this.body * 0.25);//body
+    push()
+    // translate(this.cx, this.cy)
+    // for (let i = 180; i <= 360; i += 20) {
+    //   push()
+    //   translate(this.body / 2 * cos(i), this.body / 2 * sin(i))
+    //   rotate(0.01 * (i - 270) * this.jumpAngle)
+    //   fill(229, 218, 235)
+    //   ellipse(0, 5, 10, 10)
+    //   rect(-5, 5, 10, 30)
+    //   ellipse(0, 35, 10, 10)
+    //   pop()
+
+    // }
+    // for (let i = 190; i <= 350; i += 20) {
+    //   push()
+    //   translate(this.body / 2 * cos(i), this.body / 2 * sin(i))
+    //   rotate(0.01 * (i - 270) * this.jumpAngle)
+    //   fill(135, 192, 202)
+    //   ellipse(0, 5, 10, 10)
+    //   rect(-5, 5, 10, 30)
+    //   ellipse(0, 35, 10, 10)
+    //   pop()
+    // }
+    // for (let i = 180; i <= 360; i += 20) {
+    //   push()
+    //   translate(this.body / 4 * cos(i), this.body / 3.98 * sin(i))
+    //   rotate(0.02 * (i - 270) * this.jumpAngle)
+    //   fill(229, 218, 235)
+    //   ellipse(0, -10, 10, 10)
+    //   rect(-5, -10, 10, 30)
+    //   ellipse(0, 25, 10, 10)
+    //   pop()
+    // }
+    // for (let i = 190; i <= 350; i += 20) {
+    //   push()
+    //   translate(this.body / 4 * cos(i), this.body / 3.99 * sin(i))
+    //   rotate(0.02 * (i - 270) * this.jumpAngle)
+    //   fill(135, 192, 202)
+    //   ellipse(0, -10, 10, 10)
+    //   rect(-5, -10, 10, 30)
+    //   ellipse(0, 25, 10, 10)
+    //   pop()
+    // }
+    // pop()//fur
+    push()
+    translate(this.cx - this.eye * 0.5 - 2, this.cy - this.eye)
+    rotate(this.eyeAngle)
     fill(255)
     ellipse(
-      this.cx - this.eye / 2 - 2,
-      this.cy - this.eye,
-      this.eye,
-      this.eye
-    );
-    ellipse(
-      this.cx + this.eye / 2 + 2,
-      this.cy - this.eye,
+      0,
+      0,
       this.eye,
       this.eye
     );
     fill(0);
     ellipse(
-      this.cx - this.eye / 3 + 2,
-      this.cy - this.eye,
-      this.eye / 3,
-      this.eye / 3
+      this.eye * 0.2 + 4,
+      0,
+      this.eye * 0.3,
+      this.eye * 0.3
     );
+    pop()//left eye
+    push()
+    translate(this.cx + this.eye * 0.5 + 2, this.cy - this.eye)
+    rotate(-this.eyeAngle)
+    fill(255)
     ellipse(
-      this.cx + this.eye / 3 - 2,
-      this.cy - this.eye,
-      this.eye / 3,
-      this.eye / 3
+      0,
+      0,
+      this.eye,
+      this.eye
     );
-    fill(195, 214, 231);
-    rect(this.cx - this.body / 2, this.cy, this.body, this.body * 0.25);//body
+    fill(0);
+    ellipse(
+      -this.eye * 0.2 - 4,
+      0,
+      this.eye * 0.3,
+      this.eye * 0.3
+    );
+    pop()//right eye
     push()
     translate(this.cx - this.body * 0.25, this.cy + this.body * 0.2)
     rotate(this.jumpAngle)
@@ -112,7 +168,7 @@ class LeiaDancer {
       0,
       this.body * 0.1
     );
-    pop()
+    pop()//left leg
     push()
     translate(this.cx + this.body * 0.25, this.cy + this.body * 0.2)
     rotate(-this.jumpAngle)
@@ -126,7 +182,7 @@ class LeiaDancer {
       0,
       this.body * 0.1
     );
-    pop()//leg
+    pop()//right leg
     noFill();
     stroke(0)
     arc(
