@@ -47,9 +47,9 @@ class LeiaDancer {
   }
   update() {
     //eye
-    this.eyeAngle++
+    this.eyeAngle+=5
     //smile
-    this.smileAngle = abs(((frameCount % 120) - 60) / 2);
+    this.smileAngle = abs(((frameCount % 120) - 60))/2;
     //bounce
     this.cy += 1 * this.direction
     if (this.cy <= 25 && this.cy >= -25) {
@@ -59,66 +59,20 @@ class LeiaDancer {
     }
     //jump
     if (this.direction >= 0) {
-      this.jumpAngle++
+      this.jumpAngle+=3
     } else {
-      this.jumpAngle--
+      this.jumpAngle-=3
     }
   }
   display() {
     push();
     translate(this.x, this.y);
-
-    // ******** //
-    // ⬇️ draw your dancer from here ⬇️
     noStroke()
     angleMode(DEGREES);
     fill(229, 218, 235)
     arc(this.cx, this.cy, this.body, this.body, 180, 360, CHORD);
     rect(this.cx - this.body / 2, this.cy, this.body, this.body * 0.25);//body
     push()
-    // translate(this.cx, this.cy)
-    // for (let i = 180; i <= 360; i += 20) {
-    //   push()
-    //   translate(this.body / 2 * cos(i), this.body / 2 * sin(i))
-    //   rotate(0.01 * (i - 270) * this.jumpAngle)
-    //   fill(229, 218, 235)
-    //   ellipse(0, 5, 10, 10)
-    //   rect(-5, 5, 10, 30)
-    //   ellipse(0, 35, 10, 10)
-    //   pop()
-
-    // }
-    // for (let i = 190; i <= 350; i += 20) {
-    //   push()
-    //   translate(this.body / 2 * cos(i), this.body / 2 * sin(i))
-    //   rotate(0.01 * (i - 270) * this.jumpAngle)
-    //   fill(135, 192, 202)
-    //   ellipse(0, 5, 10, 10)
-    //   rect(-5, 5, 10, 30)
-    //   ellipse(0, 35, 10, 10)
-    //   pop()
-    // }
-    // for (let i = 180; i <= 360; i += 20) {
-    //   push()
-    //   translate(this.body / 4 * cos(i), this.body / 3.98 * sin(i))
-    //   rotate(0.02 * (i - 270) * this.jumpAngle)
-    //   fill(229, 218, 235)
-    //   ellipse(0, -10, 10, 10)
-    //   rect(-5, -10, 10, 30)
-    //   ellipse(0, 25, 10, 10)
-    //   pop()
-    // }
-    // for (let i = 190; i <= 350; i += 20) {
-    //   push()
-    //   translate(this.body / 4 * cos(i), this.body / 3.99 * sin(i))
-    //   rotate(0.02 * (i - 270) * this.jumpAngle)
-    //   fill(135, 192, 202)
-    //   ellipse(0, -10, 10, 10)
-    //   rect(-5, -10, 10, 30)
-    //   ellipse(0, 25, 10, 10)
-    //   pop()
-    // }
-    // pop()//fur
     push()
     translate(this.cx - this.eye * 0.5 - 2, this.cy - this.eye)
     rotate(this.eyeAngle)
@@ -193,44 +147,6 @@ class LeiaDancer {
       0 + this.smileAngle,
       150 + this.smileAngle
     ); //smile
-    // ⬆️ draw your dancer above ⬆️
-    // ******** //
-
-    // the next function draws a SQUARE and CROSS
-    // to indicate the approximate size and the center point
-    // of your dancer.
-    // it is using "this" because this function, too, 
-    // is a part if your Dancer object.
-    // comment it out or delete it eventually.
-    this.drawReferenceShapes()
-
     pop();
   }
-  drawReferenceShapes() {
-    noFill();
-    stroke(255, 0, 0);
-    line(-5, 0, 5, 0);
-    line(0, -5, 0, 5);
-    stroke(255);
-    rect(-100, -100, 200, 200);
-    fill(255);
-    stroke(0);
-  }
 }
-
-
-
-/*
-GOAL:
-The goal is for you to write a class that produces a dancing being/creature/object/thing. In the next class, your dancer along with your peers' dancers will all dance in the same sketch that your instructor will put together. 
-
-RULES:
-For this to work you need to follow one rule: 
-  - Only put relevant code into your dancer class; your dancer cannot depend on code outside of itself (like global variables or functions defined outside)
-  - Your dancer must perform by means of the two essential methods: update and display. Don't add more methods that require to be called from outside (e.g. in the draw loop).
-  - Your dancer will always be initialized receiving two arguments: 
-    - startX (currently the horizontal center of the canvas)
-    - startY (currently the vertical center of the canvas)
-  beside these, please don't add more parameters into the constructor function 
-  - lastly, to make sure our dancers will harmonize once on the same canvas, please don't make your dancer bigger than 200x200 pixels. 
-*/
